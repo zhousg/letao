@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>乐淘-后台管理系统</title>
+    <link rel="stylesheet" href="../manage/assets/bootstrap/css/bootstrap.css"/>
+    <link rel="stylesheet" href="../manage/assets/nprogress/nprogress.css"/>
+    <link rel="stylesheet" href="../manage/css/main.css"/>
+</head>
+<body>
+<!--侧边栏-->
+<aside>
+    <div class="lt_info">
+        <a href="main.html"><b>ITCAST</b></a>
+    </div>
+    <div class="lt_user">
+        <img src="images/default.png" class="img-circle" alt="User Image">
+        <span>管理员</span>
+    </div>
+    <ul class="lt_menu">
+        <li class="now"><a href="userList.html"><span class="glyphicon glyphicon-user"></span> 用户管理</a></li>
+        <li>
+            <a href="javascript:;">
+                <span class="glyphicon glyphicon-list"></span>
+                分类管理
+                <span data-icon class="glyphicon glyphicon-menu-left"></span>
+            </a>
+
+            <div class="child">
+                <a href="categoryFirst.html">一级分类</a>
+                <a href="categorySecond.html">二级分类</a>
+            </div>
+        </li>
+        <li><a href="product.html"><span class="glyphicon glyphicon-tags"></span> 商品管理</a></li>
+    </ul>
+</aside>
+<!--右侧内容-->
+<section>
+    <!--头部-->
+    <nav class="navbar navbar-static-top">
+        <div class="container-fluid">
+            <a data-menu href="javascript:;" title="切换" class="pull-left"><span
+                    class="glyphicon glyphicon-align-justify"></span></a>
+            <a data-logout data-toggle="modal" href="#logoutModal" title="退出" class="pull-right"><span
+                    class="glyphicon glyphicon-log-out"></span></a>
+        </div>
+    </nav>
+    <!--内容-->
+    <article>
+        <div class="container-fluid">
+            <!--路径导航-->
+            <ol class="breadcrumb">
+                <li><a href="../manage/index.html">后台管理</a></li>
+                <li class="active">用户管理</li>
+            </ol>
+            <!--搜索-->
+            <div class="lt_search">
+                <form class="form-inline">
+                    <div class="form-group">
+                        <input type="text" class="form-control"  value="" placeholder="Email">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control"  value="" placeholder="Password">
+                    </div>
+                    <button type="submit" class="btn btn-default">查询</button>
+                    <button class="btn btn-primary pull-right">添加</button>
+                </form>
+            </div>
+            <!--数据表格-->
+            <div class="lt_table">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Table heading</th>
+                        <th>Table heading</th>
+                        <th>Table heading</th>
+                        <th>Table heading</th>
+                        <th>Table heading</th>
+                        <th>Table heading</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Table cell</td>
+                        <td>Table cell</td>
+                        <td>Table cell</td>
+                        <td>Table cell</td>
+                        <td>Table cell</td>
+                        <td>Table cell</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>Table cell</td>
+                        <td>Table cell</td>
+                        <td>Table cell</td>
+                        <td>Table cell</td>
+                        <td>Table cell</td>
+                        <td>Table cell</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>Table cell</td>
+                        <td>Table cell</td>
+                        <td>Table cell</td>
+                        <td>Table cell</td>
+                        <td>Table cell</td>
+                        <td>Table cell</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!--分页-->
+            <div class="lt_pager">
+                <ul class="pagination">
+                    <li>
+                        <a href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li>
+                        <a href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </article>
+</section>
+<div class="modal fade" id="logoutModal">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                <h4 class="modal-title">温馨提示</h4>
+            </div>
+            <div class="modal-body">
+                <p>您确定要退出乐淘后台管理系统吗？</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="assets/jquery/jquery.min.js"></script>
+<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="assets/nprogress/nprogress.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
