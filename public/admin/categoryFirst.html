@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>乐淘-后台管理系统</title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.css"/>
+    <link rel="stylesheet" href="assets/bootstrap-validator/css/bootstrapValidator.min.css"/>
     <link rel="stylesheet" href="assets/nprogress/nprogress.css"/>
     <link rel="stylesheet" href="css/main.css"/>
 </head>
@@ -18,16 +19,15 @@
         <span>管理员</span>
     </div>
     <ul class="lt_menu">
-        <li class="now"><a href="userList.html"><span class="glyphicon glyphicon-user"></span> 用户管理</a></li>
-        <li>
+        <li><a href="userList.html"><span class="glyphicon glyphicon-user"></span> 用户管理</a></li>
+        <li class="now">
             <a href="javascript:;">
                 <span class="glyphicon glyphicon-list"></span>
                 分类管理
                 <span data-icon class="glyphicon glyphicon-menu-left"></span>
             </a>
-
             <div class="child">
-                <a href="categoryFirst.html">一级分类</a>
+                <a style="color:white" href="categoryFirst.html">一级分类</a>
                 <a href="categorySecond.html">二级分类</a>
             </div>
         </li>
@@ -51,31 +51,21 @@
             <!--路径导航-->
             <ol class="breadcrumb">
                 <li><a href="../manage/index.html">后台管理</a></li>
-                <li class="active">用户管理</li>
+                <li class="active">分类管理</li>
+                <li class="active">一级分类</li>
             </ol>
             <!--搜索-->
-            <!--<div class="lt_search">
-                <form class="form-inline">
-                    <div class="form-group">
-                        <input type="text" class="form-control"  value="" placeholder="Email">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control"  value="" placeholder="Password">
-                    </div>
-                    <button type="submit" class="btn btn-default">查询</button>
-                    <button class="btn btn-primary pull-right">添加</button>
-                </form>
-            </div>-->
+            <div class="lt_search">
+                <button data-toggle="modal" data-target="#myModal" class="btn btn-primary pull-right mb20">添加</button>
+            </div>
             <!--数据表格-->
             <div class="lt_table">
                 <table class="table table-bordered table-hover">
                     <thead>
                     <tr>
                         <th width="10%">序号</th>
-                        <th width="30%">用户名</th>
-                        <th width="30%">手机号</th>
-                        <th width="20%">状态</th>
-                        <th>操作</th>
+                        <th width="50%">分类名称</th>
+                        <th width="40%">状态</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -89,20 +79,24 @@
         </div>
     </article>
 </section>
-<div class="modal fade" id="optionModal">
+<div class="modal fade" id="myModal">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-                <h4 class="modal-title">温馨提示</h4>
+                <button type="button" class="close" id="closeWindowId" data-dismiss="modal" >&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">添加分类</h4>
             </div>
-            <div class="modal-body">
-                <p class="text-danger">您确定<span>启用</span>该用户？</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-primary">确定</button>
-            </div>
+            <form id="top" autocomplete="off">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input name="categoryName" type="text" class="form-control" placeholder="请输入分类名称">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn_closeId btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="submit" class="btn btn-primary brandSave">保存</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -110,16 +104,8 @@
     <% for(var i = 0 ; i < rows.length ; i ++ ){ %>
     <tr>
         <th align="center"><%=i+1%></th>
-        <td><%=rows[i].username%></td>
-        <td><%=rows[i].mobile%></td>
+        <td><%=rows[i].categoryName%></td>
         <td><%=rows[i].isDelete?'正常':'停用'%></td>
-        <td>
-            <% if(rows[i].isDelete == 1){ %>
-            <button data-id="<%=rows[i].id%>" class="btn btn-sm btn-danger">禁用</button>
-            <% }else{ %>
-            <button data-id="<%=rows[i].id%>" class="btn btn-sm btn-primary">启用</button>
-            <% } %>
-        </td>
     </tr>
     <% } %>
 </script>
@@ -128,7 +114,8 @@
 <script src="assets/nprogress/nprogress.js"></script>
 <script src="assets/artTemplate/template-native.js"></script>
 <script src="assets/bootstrap-paginator/bootstrap-paginator.min.js"></script>
+<script src="assets/bootstrap-validator/js/bootstrapValidator.min.js"></script>
 <script src="js/main.js"></script>
-<script src="js/userList.js"></script>
+<script src="js/categoryFirst.js"></script>
 </body>
 </html>

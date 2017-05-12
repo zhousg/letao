@@ -105,4 +105,13 @@ section .navbar a{
 .lt_pager .pagination{
     margin: 0;
     float: right;
+    margin-bottom: 20px;
+}
+
+.mb20{
+    margin-bottom: 20px
+}
+
+.table th,.table td{
+    text-align: center;
 }

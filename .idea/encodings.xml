@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/public/admin/assets/bootstrap-validator" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/public/admin/js/categoryFirst.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/public/admin/js/categorySecond.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/public/admin/js/login.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/public/admin/js/main.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/public/admin/js/product.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/public/admin/js/userList.js" charset="UTF-8" />
+  </component>
+</project>

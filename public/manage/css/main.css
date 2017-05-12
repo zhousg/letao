@@ -106,3 +106,8 @@ section .navbar a{
     margin: 0;
     float: right;
 }
+
+/*¾ÓÖÐ*/
+.table th,.table td{
+    text-align: center;
+}

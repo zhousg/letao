@@ -10,16 +10,9 @@ var product = require('./routes/product');
 var category = require('./routes/category');
 var cart = require('./routes/cart');
 var address = require('./routes/address');
-
 var employee = require('./routes/employee');
-var app = express();
 
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+var app = express();
 
 app.use(session({
   secret: 'itcast-secret',
@@ -28,6 +21,24 @@ app.use(session({
   resave: false,
   saveUninitialized: true,
 }));
+
+app.use(function (req, res, next) {
+  var url = req.originalUrl;
+  if(!req.session.employee
+      && ((url.indexOf('/admin') > -1 && url.indexOf('.html') > -1)||url=='/admin/' )
+      && url.indexOf('/admin/login.html') == -1){
+    return res.redirect('/admin/login.html');
+  }
+  next();
+});
+
+//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+
 
 /*app.all('*',function(req,res,next){
   res.header('Access-Control-Allow-Origin','*');
@@ -63,6 +74,5 @@ app.use(function (err, req, res, next) {
       error: err
     });
 });
-
 
 module.exports = app;

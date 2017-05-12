@@ -72,7 +72,7 @@ Category.updateTopCategory = function (category, callback) {
 };
 
 Category.queryTopCategoryPaging = function (page,callback) {
-    var selectSql = 'select * from category  ';
+    var selectSql = 'select * from category order by id desc';
 	  selectSql  += " LIMIT ?,?";
     db.query(selectSql,[(page.page - 1) * page.size,page.size], function (err, result) {
         if (err) {
@@ -93,7 +93,7 @@ Category.countTopCategory = function (callback) {
     });
 };
 Category.querySecondCategoryPaging = function (page,callback) {
-    var selectSql = 'SELECT b.*,c.categoryName FROM brand AS b LEFT JOIN category AS c ON b.categoryId=c.id  ';
+    var selectSql = 'SELECT b.*,c.categoryName FROM brand AS b LEFT JOIN category AS c ON b.categoryId=c.id order by b.id desc';
     selectSql  += " LIMIT ?,?";
     db.query(selectSql,[(page.page - 1) * page.size,page.size],function (err, result) {
         if (err) {

@@ -90,21 +90,6 @@
             </ul>
         </footer>
     </div>
-<script>
-    var initScreen = function(){
-        if(screen.orientation.type == 'portrait-primary'){
-            document.querySelector('.lt_container').style.width = document.documentElement.clientHeight+'px';
-            document.querySelector('.lt_container').style.height = document.documentElement.clientWidth+'px';
-        }else{
-            document.querySelector('.lt_container').style.width = '100%';
-            document.querySelector('.lt_container').style.height = '100%';
-        }
-    }
-    initScreen();
-    screen.orientation.onchange = function(e){
-        initScreen();
-    }
-</script>
 <script src="assets/mui/js/mui.js"></script>
 <script src="js/common.js"></script>
 <script src="js/index.js"></script>
