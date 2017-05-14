@@ -1,17 +1,17 @@
 $(function(){
     var currentPageNum = 1;
-    var render = function(page){
+    var render = function(){
         getUserListData({
-            page:page || currentPageNum,
+            page:currentPageNum,
             pageSize:5
         },function(data){
             $('tbody').html(template('rows',data));
             $(".pagination").bootstrapPaginator({
                 bootstrapMajorVersion: 3,
                 size: 'small',
-                currentPage: data.pageNum,
+                currentPage: data.page,
                 totalPages: Math.ceil(data.total/data.size),
-                numberOfPages: 5,
+                numberOfPages: 20,
                 onPageClicked: function (event, originalEvent, type, page) {
                     render(currentPageNum = page);
                 }
@@ -67,7 +67,7 @@ $(function(){
             success: function (data) {
                 if (data.success) {
                     $('#myModal').modal('hide');
-                    render();
+                    render(currentPageNum = 1);
                 } else {
                     $form.data('bootstrapValidator').disableSubmitButtons(false);
                 }

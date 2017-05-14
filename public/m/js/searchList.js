@@ -1,34 +1,3 @@
-mui.init({
-    /*下拉刷新*/
-    pullRefresh : {
-        container:".mui-scroll-wrapper",
-        down : {
-            callback :function(){
-                /*注意：下拉操作完成之后 业务 */
-                /*模拟一次向后台发送请求 响应之后的时间消耗*/
-                var that = this;/*这个是下拉组件对象  对象当中含有终止下拉操作的方法*/
-                setTimeout(function(){
-                    /*下拉效果隐藏*/
-                    that.endPulldownToRefresh();
-                },1000);
-            }
-        },
-        /*上拉加载*/
-        up : {
-            callback:function(){
-                /*注意：上拉操作完成之后 业务 */
-                /*模拟一次向后台发送请求 响应之后的时间消耗*/
-                var that = this;/*这个是上拉组件对象  对象当中含有终止下拉操作的方法*/
-                setTimeout(function(){
-                    /*上拉效果隐藏*/
-                    /*可传参 如果传的是true 表示没有更多数据*/
-                    that.endPullupToRefresh();
-                },1000);
-            }
-        }
-    }
-});
-
 $(function(){
     /*
      初始化渲染
@@ -58,25 +27,16 @@ $(function(){
      * */
 
     /*1.初始化渲染*/
-    var render = function(){
-        /*获取地址栏关键字*/
-        var key = lt.getUrlParams().key || '';
-        /*显示在搜索框中*/
-        $('.search_input').val(key);
-        /*去后台获取数据*/
-        getProductListData({
-            proName:key,
-            page:1,
-            pageSize:10
-        },function(data){
-            /*渲染商品列表*/
-            $('.lt_product').html(template('productTpl',data));
-        });
-    };
-    render();
+    /*获取地址栏关键字*/
+    var key = lt.getUrlParams().key || '';
+    /*显示在搜索框中*/
+    $('.search_input').val(key);
+    /*当前渲染页面*/
+    var currPage = 1;
 
-    /*2.当前页搜索*/
-    $('.search_btn').on('tap',function(){
+    /*4.优化渲染操作*/
+    /* 加载时候   关键字 排序（key=value） 当前页  页面*/
+    var render = function(callback){
         /*获取搜索框当中的按钮*/
         var key = $.trim($('.search_input').val());
         /*判断是否输入了内容*/
@@ -84,19 +44,45 @@ $(function(){
             mui.toast('请输入关键字');
             return false;
         }
+        /*获取需要排序的方式*/
+        var type = $('[data-type].now').attr('data-type');
+        var value = $('[data-type].now').find('span').hasClass('fa-angle-down')?2:1;
+        var order = {};
+        if(type){
+            order[type] = value;
+        }
+        /*显示多少条*/
+        var pageSize = 10;
 
-        $('[data-type].now').removeClass('now').find('span').removeClass('fa-angle-up').addClass('fa-angle-down');
-
-        $('.lt_product').html('<div class="loading"><span class="mui-icon mui-icon-spinner"></span></div>');
         /*去后台获取数据*/
-        getProductListData({
+        getProductListData($.extend({
             proName:key,
-            page:1,
-            pageSize:10
-        },function(data){
+            page:currPage,
+            pageSize:pageSize
+        },order),function(data){
             /*渲染商品列表*/
-            $('.lt_product').html(template('productTpl',data));
+            if(currPage == 1){
+                $('.lt_product').html(template('productTpl',data));
+            }else{
+                $('.lt_product').append(template('productTpl',data));
+            }
+
+            /*成功请求的其他业务*/
+            callback && callback();
         });
+    };
+    render();
+
+    /*2.当前页搜索*/
+    $('.search_btn').on('tap',function(){
+        /*去掉排序*/
+        $('[data-type].now').removeClass('now').find('span').removeClass('fa-angle-up').addClass('fa-angle-down');
+        /*显示加载*/
+        $('.lt_product').html('<div class="loading"><span class="mui-icon mui-icon-spinner"></span></div>');
+        /*当前页码*/
+        currPage = 1;
+        /*渲染*/
+        render();
     });
 
     /*3.排序展示*/
@@ -116,31 +102,53 @@ $(function(){
             $('[data-type].now').removeClass('now').find('span').removeClass('fa-angle-up').addClass('fa-angle-down');
             $this.addClass('now');
         }
+        /*当前页码*/
+        currPage = 1;
+        /*渲染*/
+        render();
+    });
 
-        /*获取需要排序的方式*/
-        var type = $('[data-type].now').attr('data-type');
-        var value = $('[data-type].now').find('span').hasClass('fa-angle-down')?2:1;
-        var order = {};
-            order[type] = value;
+    mui.init({
+        /*4.下拉刷新*/
+        pullRefresh : {
+            container:".mui-scroll-wrapper",
+            down : {
+                callback :function(){
+                    /*注意：下拉操作完成之后 业务 */
+                    /*模拟一次向后台发送请求 响应之后的时间消耗*/
+                    var that = this;/*这个是下拉组件对象  对象当中含有终止下拉操作的方法*/
+                    /*当前页码*/
+                    currPage = 1;
+                    /*开发真实的业务*/
+                    render(function(){
+                        /*下拉效果隐藏*/
+                        that.endPulldownToRefresh();
+                    });
+                }
+            },
+            /*5.上拉加载*/
+            up : {
+                callback:function(){
+                    /*注意：上拉操作完成之后 业务 */
+                    /*模拟一次向后台发送请求 响应之后的时间消耗*/
+                    var that = this;/*这个是上拉组件对象  对象当中含有终止下拉操作的方法*/
+                    setTimeout(function(){
+                        /*上拉效果隐藏*/
+                        /*可传参 如果传的是true 表示没有更多数据*/
+                        that.endPullupToRefresh();
+                    },1000);
 
-        /*获取搜索框当中的按钮*/
-        var key = $.trim($('.search_input').val());
-        /*判断是否输入了内容*/
-        if(!key){
-            mui.toast('请输入关键字');
-            return false;
+                    /*下一页*/
+                    currPage ++;
+                    /*开发真实的业务*/
+                    render(function(){
+                        /*上拉效果隐藏*/
+                        /*可传参 如果传的是true 表示没有更多数据*/
+                        that.endPullupToRefresh();
+                    });
+                }
+            }
         }
-
-        $('.lt_product').html('<div class="loading"><span class="mui-icon mui-icon-spinner"></span></div>');
-        getProductListData($.extend({
-            proName:key,
-            page:1,
-            pageSize:10,
-        },order),function(data){
-            /*渲染商品列表*/
-            $('.lt_product').html(template('productTpl',data));
-        });
-
     });
 
 });
