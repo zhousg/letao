@@ -2,120 +2,59 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title>乐淘-后台管理系统</title>
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.css"/>
+    <title>后台管理系统-首页</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="assets/bootstrap-validator/css/bootstrapValidator.min.css"/>
     <link rel="stylesheet" href="assets/nprogress/nprogress.css"/>
-    <link rel="stylesheet" href="css/main.css"/>
+    <link rel="stylesheet" href="css/admin.css"/>
 </head>
 <body>
 <!--侧边栏-->
-<aside>
-    <div class="lt_info">
-        <a href="index.html"><b>ITCAST</b></a>
+<aside class="ad_aside">
+    <!--商标-->
+    <div class="brand"><a href="index.html">ITCAST</a></div>
+    <!--用户-->
+    <div class="user">
+        <img src="images/default.png" alt=""/>
+        <span>超级管理员</span>
     </div>
-    <div class="lt_user">
-        <img src="images/default.png" class="img-circle" alt="User Image">
-        <span>管理员</span>
+    <!--菜单-->
+    <div class="menu">
+        <ul>
+            <li class="now"><a href="userManage.html"><span class="glyphicon glyphicon-user"></span> 用户管理</a></li>
+            <li>
+                <a href="javascript:;"><span class="glyphicon glyphicon-list"></span> 分类管理</a>
+                <div class="child" style="display: none">
+                    <a href="categoryFirst.html">一级分类</a>
+                    <a href="categorySecond.html">二级分类</a>
+                </div>
+            </li>
+            <li><a href="productManage"><span class="glyphicon glyphicon-tags"></span> 商品管理</a></li>
+        </ul>
     </div>
-    <ul class="lt_menu">
-        <li><a href="userList.html"><span class="glyphicon glyphicon-user"></span> 用户管理</a></li>
-        <li class="now">
-            <a href="javascript:;">
-                <span class="glyphicon glyphicon-list"></span>
-                分类管理
-                <span data-icon class="glyphicon glyphicon-menu-left"></span>
-            </a>
-            <div class="child">
-                <a style="color:white" href="categoryFirst.html">一级分类</a>
-                <a href="categorySecond.html">二级分类</a>
-            </div>
-        </li>
-        <li><a href="product.html"><span class="glyphicon glyphicon-tags"></span> 商品管理</a></li>
-    </ul>
 </aside>
-<!--右侧内容-->
-<section>
-    <!--头部-->
-    <nav class="navbar navbar-static-top">
-        <div class="container-fluid">
-            <a data-menu href="javascript:;" title="切换" class="pull-left"><span
-                    class="glyphicon glyphicon-align-justify"></span></a>
-            <a data-logout data-toggle="modal" href="#logoutModal" title="退出" class="pull-right"><span
-                    class="glyphicon glyphicon-log-out"></span></a>
-        </div>
+<!--内容-->
+<section class="ad_section">
+    <!--顶部导航-->
+    <nav class="ad_nav">
+        <a data-menu href="javascript:;"><span class="glyphicon glyphicon-align-justify"></span></a>
+        <a data-logout href="javascript:;"><span class="glyphicon glyphicon-log-out"></span></a>
     </nav>
-    <!--内容-->
-    <article>
-        <div class="container-fluid">
-            <!--路径导航-->
-            <ol class="breadcrumb">
-                <li><a href="../manage/index.html">后台管理</a></li>
-                <li class="active">分类管理</li>
-                <li class="active">一级分类</li>
-            </ol>
-            <!--搜索-->
-            <div class="lt_search">
-                <button data-toggle="modal" data-target="#myModal" class="btn btn-primary pull-right mb20">添加</button>
-            </div>
-            <!--数据表格-->
-            <div class="lt_table">
-                <table class="table table-bordered table-hover">
-                    <thead>
-                    <tr>
-                        <th width="10%">序号</th>
-                        <th width="50%">分类名称</th>
-                        <th width="40%">状态</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
-            </div>
-            <!--分页-->
-            <div class="lt_pager">
-                <ul class="pagination"></ul>
-            </div>
-        </div>
-    </article>
-</section>
-<div class="modal fade" id="myModal">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" id="closeWindowId" data-dismiss="modal" >&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">添加分类</h4>
-            </div>
-            <form id="top" autocomplete="off">
-                <div class="modal-body">
-                    <div class="form-group">
-                        <input name="categoryName" type="text" class="form-control" placeholder="请输入分类名称">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn_closeId btn btn-default" data-dismiss="modal">关闭</button>
-                    <button type="submit" class="btn btn-primary brandSave">保存</button>
-                </div>
-            </form>
-        </div>
+    <div class="container-fluid">
+        <!--路径导航-->
+        <ol class="breadcrumb">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Library</a></li>
+            <li class="active">Data</li>
+        </ol>
+        <!--TODO 内容-->
     </div>
-</div>
-<script type="text/template" id="rows">
-    <% for(var i = 0 ; i < rows.length ; i ++ ){ %>
-    <tr>
-        <th align="center"><%=i+1%></th>
-        <td><%=rows[i].categoryName%></td>
-        <td><%=rows[i].isDelete?'正常':'停用'%></td>
-    </tr>
-    <% } %>
-</script>
+</section>
 <script src="assets/jquery/jquery.min.js"></script>
 <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-<script src="assets/nprogress/nprogress.js"></script>
-<script src="assets/artTemplate/template-native.js"></script>
-<script src="assets/bootstrap-paginator/bootstrap-paginator.min.js"></script>
 <script src="assets/bootstrap-validator/js/bootstrapValidator.min.js"></script>
-<script src="js/main.js"></script>
-<script src="js/categoryFirst.js"></script>
+<script src="assets/nprogress/nprogress.js"></script>
+<script src="js/admin.js"></script>
+<script src="js/index.js"></script>
 </body>
 </html>
