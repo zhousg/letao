@@ -14,8 +14,8 @@ router.post("/employeeLogin", function (req, res) {
   var md5 = crypto.createHash('md5');
   var password = md5.update(req.body.password).digest('base64');
   Employee.getUserByName(req.body.username, function (err, result) {
-    if (!result) return res.send({ "error": 403, "message": "用户名不存在! " });
-    if (result.password != password) return res.send({ "error": 403, "message": "密码错误！" });
+    if (!result) return res.send({ "error": 1000, "message": "用户名不存在! " });
+    if (result.password != password) return res.send({ "error": 1001, "message": "密码错误！" });
     req.session.employee = result;
     console.log(req.session.employee);
     res.send({ "success": true });

@@ -36,24 +36,23 @@
 <script type="text/html" id="productTpl">
     <div class="cz_banner mui-slider">
         <div class="mui-slider-group mui-slider-loop">
-            <%
-                var pic = model.pic || '/mobile/images/none.jpg';
-                var picList = pic.split(',');
-            %>
+            <% if(!model.pic || model.pic.length == 0) {
+                model.pic = [{'picAddr':'/m/images/none.png'}];
+            } %>
             <div class="mui-slider-item mui-slider-item-duplicate">
-                <a href="javascript:;"><img src="<%=picList[picList.length-1]%>"></a>
+                <a href="javascript:;"><img src="<%=model.pic[model.pic.length-1].picAddr%>"></a>
             </div>
-            <% for(var i = 0;i < picList.length;i++){ %>
+            <% for(var i = 0;i < model.pic.length;i++){ %>
             <div class="mui-slider-item">
-                <a href="javascript:;"><img src="<%=picList[i]%>"></a>
+                <a href="javascript:;"><img src="<%=model.pic[i].picAddr%>"></a>
             </div>
             <% } %>
             <div class="mui-slider-item mui-slider-item-duplicate">
-                <a href="javascript:;"><img src="<%=picList[0]%>"></a>
+                <a href="javascript:;"><img src="<%=model.pic[0].picAddr%>"></a>
             </div>
         </div>
         <div class="mui-slider-indicator">
-            <% for(var i = 0;i < picList.length;i++){ %>
+            <% for(var i = 0;i < model.pic.length;i++){ %>
             <div class="mui-indicator <%=i==0?'mui-active':''%>"></div>
             <% } %>
         </div>

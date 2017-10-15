@@ -14,7 +14,7 @@ function Product(pro) {
 	this.brandId = pro.brandId;
 };
 Product.queryProductDetailList= function (product, page, callback) {
-  var selectSql = "SELECT * FROM product WHERE statu=1";
+  var selectSql = "SELECT * FROM product WHERE 1=1";
   var param = new Array();
   if (product.proName) {
     selectSql = selectSql + " AND  proName LIKE ? ";
@@ -46,7 +46,7 @@ Product.queryProductDetailList= function (product, page, callback) {
   });
 };
 Product.queryProduct = function (product, page, callback) {
-	var selectSql = "SELECT * FROM product WHERE statu=1";
+	var selectSql = "SELECT * FROM product WHERE 1=1";
 	var param = new Array();
 	if (product.proName) {
 		selectSql = selectSql + " AND  proName LIKE ? ";
@@ -78,7 +78,7 @@ Product.queryProduct = function (product, page, callback) {
 	});
 };
 Product.countProduct = function (callback) {
-	var selectSql = 'SELECT count(id) as count FROM product WHERE statu=1';
+	var selectSql = 'SELECT count(id) as count FROM product WHERE 1=1';
 	db.query(selectSql, function (err, result) {
 		if (err) {
 			return callback(err);

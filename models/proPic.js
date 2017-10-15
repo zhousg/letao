@@ -4,14 +4,13 @@ var db = require('./db.js');
 function ProPic(pic) {
 	this.id = pic.id;
 	this.picName = pic.picName;
-  this.picAddr = pic.picAddr;
+    this.picAddr = pic.picAddr;
 	this.productId = pic.productId;
 };
 ProPic.addPic = function (pic, callback) {
   var selectSql = 'insert into product_picture (id,picName,productId,picAddr)  values (null,?,?,?)';
   db.query(selectSql, [pic.picName, pic.productId, pic.picAddr], function (err, result) {
     if (err) {
-      
       console.log(err);
       return callback(err);
     }

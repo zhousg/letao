@@ -44,36 +44,3 @@
 .lt_order a.now{
     color: darkorange;
 }
-
-/*加载中效果*/
-.loading{
-    min-height: 250px;
-    width: 100%;
-    text-align: center;
-    line-height: 250px;
-}
-.loading .mui-icon{
-    color: #069;
-    animation: rotateLoading 1s infinite;
-}
-@keyframes rotateLoading {
-    from{
-        transform: rotate(0deg);
-        -webkit-transform: rotate(0deg);
-    }
-    to{
-        transform: rotate(360deg);
-        -webkit-transform: rotate(360deg);
-    }
-}
-/*webkit兼容*/
-@-webkit-keyframes rotateLoading {
-    from{
-        transform: rotate(0deg);
-        -webkit-transform: rotate(0deg);
-    }
-    to{
-        transform: rotate(360deg);
-        -webkit-transform: rotate(360deg);
-    }
-}

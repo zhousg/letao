@@ -31,6 +31,8 @@ Product.queryProductDetailList= function (product, page, callback) {
   else if (product.num) {
     if (product.num == 1) selectSql = selectSql + " ORDER BY num ";
     if (product.num == 2) selectSql = selectSql + " ORDER BY num DESC ";
+  }else{
+      selectSql = selectSql + " ORDER BY id DESC ";
   }
   selectSql = selectSql + " LIMIT ?,?";
   param[param.length] = (page.page - 1) * page.size;
@@ -44,6 +46,16 @@ Product.queryProductDetailList= function (product, page, callback) {
     var data = result;
     callback(err, data);
   });
+};
+Product.countProductDetailList = function (callback) {
+    var selectSql = 'SELECT count(id) as count FROM product WHERE 1=1';
+    db.query(selectSql, function (err, result) {
+        if (err) {
+            return callback(err);
+        }
+        var data = result[0];
+        callback(err, data);
+    });
 };
 Product.queryProduct = function (product, page, callback) {
 	var selectSql = "SELECT * FROM product WHERE statu=1";

@@ -12,7 +12,7 @@ var express = require('express'),
 
 function checkRootLogin(req, res, next) {
     if (!req.session.employee) {
-        return res.send({ "error": 400, "message": "未登录！" });
+        return res.send({"error": 400, "message": "未登录！"});
     }
     next();
 }
@@ -28,10 +28,10 @@ router.get("/queryProduct", function (req, res) {
         size: req.query.pageSize ? parseInt(req.query.pageSize) : 10,
     })
     Product.queryProduct(product, page, function (err, data) {
-        if (err) return res.send({ "error": 403, "message": "数据库异常！" });
+        if (err) return res.send({"error": 403, "message": "数据库异常！"});
 
         Product.countProduct(function (err, result) {
-            if (err) return res.send({ "error": 403, "message": "数据库异常！" });
+            if (err) return res.send({"error": 403, "message": "数据库异常！"});
             if (data.length == 0) {
                 page.count = result.count;
                 page.data = data;
@@ -48,7 +48,7 @@ router.get("/queryProduct", function (req, res) {
                 data[i].pic = new Array();
             }
             ProPic.queryPic(idStr, function (err, picData) {
-                if (err) return res.send({ "error": 403, "message": "数据库异常！" });
+                if (err) return res.send({"error": 403, "message": "数据库异常！"});
                 for (let l = 0; l < picData.length; l++) {
                     for (let n = 0; n < data.length; n++)
                         if (data[n].id == picData[l].productId) {
@@ -66,8 +66,15 @@ router.get("/queryProduct", function (req, res) {
 
 router.get("/queryProductDetail", function (req, res) {
     Product.queryProductDetail(req.query.id, function (err, data) {
-        if (err) return res.send({ "error": 403, "message": "数据库异常！" });
-        res.send(data);
+        if (err) return res.send({"error": 403, "message": "数据库异常！"});
+        data.pic = new Array();
+        ProPic.queryPic(req.query.id, function (err, picData) {
+            if (err) return res.send({"error": 403, "message": "数据库异常！"});
+            if (picData && picData.length) {
+                data.pic = picData;
+            }
+            res.send(data);
+        })
     })
 });
 router.get("/queryProductDetailList", checkRootLogin);
@@ -83,9 +90,10 @@ router.get("/queryProductDetailList", function (req, res) {
         size: req.query.pageSize ? parseInt(req.query.pageSize) : 10,
     })
     Product.queryProductDetailList(product, page, function (err, data) {
-        if (err) return res.send({ "error": 403, "message": "数据库异常！" });
-        Product.countProduct(function (err, result) {
-            if (err) return res.send({ "error": 403, "message": "数据库异常！" });
+        if (err) return res.send({"error": 403, "message": "数据库异常！"});
+        console.log('后台');
+        Product.countProductDetailList(function (err, result) {
+            if (err) return res.send({"error": 403, "message": "数据库异常！"});
             page.total = result.count;
             page.rows = data;
             res.send(page);
@@ -111,8 +119,8 @@ router.post("/addProductPic", function (req, res) {
             if (!file || file.name == "") break;
             let picName = uuid.v1() + path.extname(file.name);
             fs.rename(file.path, 'public\\upload\\product\\' + picName, function (err) {
-                if (err) res.send({ "error": 403, "message": "图片保存异常！" });
-                res.send({ "picName": picName, "picAddr": '/upload/product/' + picName });
+                if (err) res.send({"error": 403, "message": "图片保存异常！"});
+                res.send({"picName": picName, "picAddr": '/upload/product/' + picName});
 
             })
         }
@@ -120,14 +128,14 @@ router.post("/addProductPic", function (req, res) {
 });
 router.post("/addProduct", checkRootLogin);
 
-var addPic=function(picName,picAddr,id){
-       ProPic.addPic({
-                picName: picName,
-                productId: id,
-                picAddr: picAddr
-            }, function (err, data) {
-                console.log("加入一张图片成功！");
-            })
+var addPic = function (picName, picAddr, id) {
+    ProPic.addPic({
+        picName: picName,
+        productId: id,
+        picAddr: picAddr
+    }, function (err, data) {
+        console.log("加入一张图片成功！");
+    })
 }
 router.post("/addProduct", function (req, res) {
 
@@ -137,24 +145,24 @@ router.post("/addProduct", function (req, res) {
         price: req.body.price ? parseFloat(req.body.price) : '',
         proDesc: req.body.proDesc ? req.body.proDesc : '',
         size: req.body.size ? req.body.size : '',
-        statu: req.body.statu ? parseInt(req.body.statu) : '',
+        statu: req.body.statu ? parseInt(req.body.statu) : '1',
         updateTime: moment().format("YYYY-MM-DD HH:mm:ss"),
         num: req.body.num ? parseInt(req.body.num) : '',
         brandId: req.body.brandId ? parseInt(req.body.brandId) : ''
     })
     Product.addProduct(product, function (err, data) {
-        if (err) return res.send({ "error": 403, "message": "数据库异常！" });
-       
-        if (req.body.picName1&&req.body.picAddr1){
-            addPic(req.body.picName1,req.body.picAddr1,data.insertId);
+        if (err) return res.send({"error": 403, "message": "数据库异常！"});
+
+        if (req.body.picName1 && req.body.picAddr1) {
+            addPic(req.body.picName1, req.body.picAddr1, data.insertId);
         }
-         if (req.body.picName2&&req.body.picAddr2){
-            addPic(req.body.picName2,req.body.picAddr2,data.insertId);
+        if (req.body.picName2 && req.body.picAddr2) {
+            addPic(req.body.picName2, req.body.picAddr2, data.insertId);
         }
-        if (req.body.picName3&&req.body.picAddr3){
-            addPic(req.body.picName3,req.body.picAddr3,data.insertId);
+        if (req.body.picName3 && req.body.picAddr3) {
+            addPic(req.body.picName3, req.body.picAddr3, data.insertId);
         }
-        res.send({ "success": true });
+        res.send({"success": true});
     })
 
 });
@@ -173,23 +181,23 @@ router.post("/updateProduct", function (req, res) {
         brandId: req.body.brandId ? parseInt(req.body.brandId) : ''
     })
     Product.updateProduct(product, function (err, data) {
-        if (err) return res.send({ "error": 403, "message": "数据库异常！" });
+        if (err) return res.send({"error": 403, "message": "数据库异常！"});
 
         ProPic.delPic(req.body.id, function (err, picData) {
-            if (err) return res.send({ "error": 403, "message": "数据库异常！" });
-        if (req.body.picName1&&req.body.picAddr1){
-            addPic(req.body.picName1,req.body.picAddr1,req.body.id);
-        }
-         if (req.body.picName2&&req.body.picAddr2){
-            addPic(req.body.picName2,req.body.picAddr2,req.body.id);
-        }
-        if (req.body.picName3&&req.body.picAddr3){
-            addPic(req.body.picName3,req.body.picAddr3,req.body.id);
-        }
+            if (err) return res.send({"error": 403, "message": "数据库异常！"});
+            if (req.body.picName1 && req.body.picAddr1) {
+                addPic(req.body.picName1, req.body.picAddr1, req.body.id);
+            }
+            if (req.body.picName2 && req.body.picAddr2) {
+                addPic(req.body.picName2, req.body.picAddr2, req.body.id);
+            }
+            if (req.body.picName3 && req.body.picAddr3) {
+                addPic(req.body.picName3, req.body.picAddr3, req.body.id);
+            }
         })
 
 
-        res.send({ "success": true });
+        res.send({"success": true});
     })
     // //创建表单上传
     // var form = new formidable.IncomingForm();

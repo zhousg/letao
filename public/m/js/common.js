@@ -19,3 +19,26 @@ lt.getUrlParams = function(){
     }
     return params;
 }
+/*登录拦截  凡事需要登录操作 调用*/
+lt.ajaxFilter = function(options){
+    $.ajax({
+        type:options.type||'get',
+        url:options.url||location.pathname,
+        data:options.data||{},
+        dataType:options.dataType||'json',
+        beforeSend:function(){
+            options.beforeSend && options.beforeSend();
+        },
+        success:function(data){
+            /* error 如果  400  代表未登录 去登录页  携带url*/
+            if(data.error == 400){
+                location.href = '/m/user/login.html?returnUrl='+location.href
+            }else{
+                options.success && options.success(data);
+            }
+        },
+        error:function(){
+            options.error && options.error();
+        }
+    });
+}
