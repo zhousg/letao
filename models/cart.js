@@ -30,7 +30,7 @@ Cart.updateCart = function (cart, callback) {
   });
 }
 Cart.deleteCart = function (id, callback) {
-  var idStr = "";
+  /*var idStr = "";
   for (var i = 0; i < id.length; i++) {
     if (i == 0) {
       idStr = idStr + id[i];
@@ -40,7 +40,12 @@ Cart.deleteCart = function (id, callback) {
     }
   }
 
-  var delSql = "UPDATE cart SET isDelete =0 WHERE id in (" + idStr + ")";
+  var delSql = "UPDATE cart SET isDelete =0 WHERE id in (" + idStr + ")";*/
+
+  var delSql = "UPDATE cart SET isDelete =0 WHERE id = " + id;
+
+  console.log(delSql);
+
   db.query(delSql, function (err, res) {
     if (err) {
       return callback(err);
@@ -49,7 +54,7 @@ Cart.deleteCart = function (id, callback) {
   });
 }
 Cart.queryCartPaging = function (id, page, callback) {
-  var selectSql = 'SELECT c.id,c.productId,c.num,c.size,p.proName,p.price,p.oldPrice,p.num as productNum,p.statu,p.size as productSize from cart as c left join product as p on c.productId=p.id where c.userId=?';
+  var selectSql = 'SELECT c.id,c.productId,c.num,c.size,p.proName,p.price,p.oldPrice,p.num as productNum,p.statu,p.size as productSize from cart as c left join product as p on c.productId=p.id where c.isDelete = 1 and c.userId=?';
 
   selectSql +=" LIMIT ?,?";
   db.query(selectSql, [id, (page.page - 1) * page.size, page.size],function (err, res) {
@@ -69,7 +74,7 @@ Cart.queryCart = function (id,callback) {
   });
 }
 Cart.countCart = function (id, callback) {
-  var delSql = 'SELECT count(c.id) as count from cart as c left join product as p on c.productId=p.id where c.userId=?';
+  var delSql = 'SELECT count(c.id) as count from cart as c left join product as p on c.productId=p.id where  c.isDelete = 1 and  c.userId=?';
   db.query(delSql, [id], function (err, res) {
     if (err) {
       return callback(err);
