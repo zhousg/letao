@@ -3,7 +3,7 @@
 ### 项目启动
 
 - 创建 letao 数据库，导入docs下的sql文件
-- 启动 `npm run dev`
+- 启动 `npm start`，在项目根目录执行
 
 ### 移动端
 
