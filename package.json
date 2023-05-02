@@ -12,7 +12,7 @@
     "express": "^4.16.3",
     "express-session": "^1.15.6",
     "formidable": "*",
-    "hbs": "~4.0.0",
+    "hbs": "~4.2.0",
     "moment": "^2.22.2",
     "morgan": "^1.9.0",
     "mysql": "^2.15.0",
