@@ -13,7 +13,7 @@
     "express-session": "^1.15.6",
     "formidable": "*",
     "hbs": "~4.2.0",
-    "moment": "^2.22.2",
+    "moment": "^2.29.4",
     "morgan": "^1.9.1",
     "mysql": "^2.15.0",
     "node-uuid": "*",
