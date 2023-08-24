@@ -1,6 +1,3 @@
-/**
- * Created by cena on 2016/4/18.
- */
 var express = require('express'),
     formidable = require('formidable'),
     fs = require('fs'),

@@ -1,12 +1,12 @@
 ﻿'use strict';
 
-const mysql = require('mysql');
+const mysql = require('mysql2');
 
 const pool  = mysql.createPool({
     host : '127.0.0.1',
     user : 'root',
-    password : '',
-    database : 'letao'
+    password : '12345678',
+    database : 'letao-shop'
 });
 
 /**
@@ -35,6 +35,7 @@ exports.query = function() {
         if (err) {
             callback(err);
         }
+        console.log('数据库连接成功', err, connection);
         connection.query(sqlStr, params, function(err, rows) {
             if (err) {
                 callback(err);
