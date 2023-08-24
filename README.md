@@ -49,15 +49,19 @@ const pool  = mysql.createPool({
 });
 ```
 
-移动端 `http://localhost:3000/mobile/index.html`
-
+移动端 
+- 预览 `http://localhost:3000/mobile/index.html`
 - 用户名 itcast 密码 111111
-  后台管理端 `http://localhost:3000/admin/index.html`
+- 接口文档 `./docs/前台接口文档.md`
+
+后台管理端
+- 预览 `http://localhost:3000/admin/index.html`
 - 用户名 root 密码 123456
+- 接口文档 `./docs/后台接口文档.md`
 
-### 移动端
+## 移动端
 
-#### Mui 介绍
+### Mui 介绍
 
 - Mui 是一个 ui 框架 针对移动端开发的 ui 框架 只能适配移动端（流式布局）
 - 学习官网 http://dev.dcloud.net.cn/mui/
@@ -80,7 +84,7 @@ const pool  = mysql.createPool({
   mui 通过双 webview 解决这个 DIV 的拖动流畅度问题；拖动时，拖动的不是 div，
   而是一个完整的 webview（子 webview），回弹动画使用原生动画
 
-#### 首页
+### 首页
 
 - 充当移动端入口静态的
 - 搭建页面主体架子
@@ -126,7 +130,7 @@ mui(".mui-slider").slider({
 });
 ```
 
-#### 分类页
+### 分类页
 
 - 静态页面
 
@@ -150,7 +154,7 @@ mui(".lt_cateRight").scroll();
 onerror="失败的时候去替换原来错误的地址 为默认图片的地址"
 onerror="this.src = 'images/none.jpg' "
 
-#### 搜索页
+### 搜索页
 
 - 静态页面
 
@@ -169,7 +173,7 @@ onerror="this.src = 'images/none.jpg' "
   - 点击情况历史记录 情况所有记录 （把本来存储的数据清空）
     需求 记录 10 数据 如果超过加一条 删一条 如果有一样的删除 记录新的
 
-#### 搜索列表页
+### 搜索列表页
 
 - 静态页面
   - 搜索表单
@@ -212,7 +216,7 @@ onerror="this.src = 'images/none.jpg' "
    2.通过关键字去后台获取和关键字相关的商品数据（而且是根据当前页面进行获取）  
    3.渲染商品列表 当时是追加到页面当中
 
-#### 商品详情页
+### 商品详情页
 
 - 静态页面
   - 顶部通栏
@@ -230,7 +234,7 @@ onerror="this.src = 'images/none.jpg' "
   - 数量选择
   - 加入购物车
 
-#### 登录
+### 登录
 
 - 静态页面
   - 用户名
@@ -242,7 +246,7 @@ onerror="this.src = 'images/none.jpg' "
     2.直接是登录页面 登录成功之后默认进入用户首页  
     3.一种接口 需要登录才能调通的接口 400 证明需要去登录 需要传递给登录也 回跳的连接
 
-#### 用户中心
+### 用户中心
 
     - 静态页面
 
@@ -250,7 +254,7 @@ onerror="this.src = 'images/none.jpg' "
         + 获取个人信息并且展示
         + 点击退出按钮进行退出
 
-#### 购物车
+### 购物车
 
 - 静态页面
   - 商品列表
@@ -287,7 +291,7 @@ onerror="this.src = 'images/none.jpg' "
 
     ```
 
-#### 登录
+### 登录
 
 - 静态的页面
 - 动态交互
@@ -336,14 +340,14 @@ onerror="this.src = 'images/none.jpg' "
 - 基于 jquery 的前端进度插件 《nprogress》
   - 文档参考 http://blog.csdn.net/joyhen/article/details/24458427
 
-#### 管理主体结构
+### 管理主体结构
 
 - 静态的页面
   - 侧边栏 1.顶部 logo 2.用户信息 3.菜单（一级，二级）
   - 主体内容 1.顶部通栏 2.路径导航 3.不同页面不同的内容
 - 动态交互 1.手风琴菜单 2.收起和展开侧边栏 3.退出 弹出对话狂 确定是否退出
 
-#### 首页
+### 首页
 
 - 渲染图表
 
@@ -356,7 +360,7 @@ onerror="this.src = 'images/none.jpg' "
   - 现在后台没有提供对应的数据接口 但是我们可以模拟
   - 给大家带来以后工作当中可能会遇到的问题
 
-#### 用户管理
+### 用户管理
 
 - 用户信息的展示
   - 序号 用户名 手机号 状态（禁用、正常） 操作（禁用、启用）
